@@ -20,7 +20,7 @@ type SHandler struct {
 	job Job
 }
 
-//Handler represents a method to be handled by thr router for each type of job
+//Handler represents generic contract of how a job should be handled by a router
 type Handler interface {
 	handle(job Job)
 }
