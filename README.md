@@ -11,4 +11,4 @@
 
 **Payload**
 
-	{"name":"pluto_email_overdue","payload":"some payload"}
+	{"name":"some_job_name","payload":"some payload"}

@@ -12,8 +12,8 @@ func main() {
 	fmt.Println("Saturn is starting ...")
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)
-	router.HandleFunc("/job", JobInterface).Methods("POST")
-	router.HandleFunc("/sjob", SJobInterface).Methods("POST")
+	router.HandleFunc("/job", JobRouteHandler).Methods("POST")
+	router.HandleFunc("/sjob", SJobRouteHandler).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8088", router))
 }
 
