@@ -11,12 +11,14 @@ import (
 func main() {
 	fmt.Println("Saturn is starting ...")
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", Index)
-	router.HandleFunc("/job", JobRouteHandler).Methods("POST")
-	router.HandleFunc("/sjob", SJobRouteHandler).Methods("POST")
+	router.HandleFunc("/", Index)                                    //.Schemes("https")
+	router.HandleFunc("/message/{messageId}", GetMessageByIDHandler) //.Schemes("https")
+	router.HandleFunc("/job", JobRouteHandler).Methods("POST")       //.Schemes("https")
+	router.HandleFunc("/sjob", SJobRouteHandler).Methods("POST")     //.Schemes("https")
 	log.Fatal(http.ListenAndServe(":8088", router))
 }
 
+// Index is a simple health service
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Ping pong, hello there!")
 }

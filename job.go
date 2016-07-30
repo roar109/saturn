@@ -6,6 +6,7 @@ import (
 	"io"
 )
 
+//Job is  simple structure for an incomming task/work to do
 type Job struct {
 	Name      string `json:"name"`
 	Payload   string `json:"payload"`

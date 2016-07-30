@@ -10,27 +10,33 @@ import (
 	"strings"
 )
 
+//JHandler is a representation os a simple job
 type JHandler struct {
 	job Job
 }
 
+//SHandler is a representation os a simple scheduled job
 type SHandler struct {
 	job Job
 }
 
+//Handler represents a method to be handled by thr router for each type of job
 type Handler interface {
 	handle(job Job)
 }
 
+//JobRouteHandler handle the router for the Job
 func JobRouteHandler(w http.ResponseWriter, r *http.Request) {
-	JobRoutesHandler(w, r, JHandler{})
+	jobRoutesHandler(w, r, JHandler{})
 }
 
+//SJobRouteHandler handle the router for the scheduled Job
 func SJobRouteHandler(w http.ResponseWriter, r *http.Request) {
-	JobRoutesHandler(w, r, SHandler{})
+	jobRoutesHandler(w, r, SHandler{})
 }
 
-func JobRoutesHandler(w http.ResponseWriter, r *http.Request, handler Handler) {
+//jobRoutesHandler is generic method to handle any valid Handler value
+func jobRoutesHandler(w http.ResponseWriter, r *http.Request, handler Handler) {
 	body, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
@@ -61,12 +67,12 @@ func JobRoutesHandler(w http.ResponseWriter, r *http.Request, handler Handler) {
 
 func (jHandler JHandler) handle(job Job) {
 	jHandler.job = job
-	fmt.Println(fmt.Sprintf("Name: %s , message: %s", jHandler.job.Name, jHandler.job.Payload))
+	fmt.Println(fmt.Sprintf("Name: %s , payload: %s, msgid: %s", jHandler.job.Name, jHandler.job.Payload, jHandler.job.MessageId))
 	//call job.name on remote
 
 }
 func (sHandler SHandler) handle(job Job) {
 	sHandler.job = job
-	fmt.Println(fmt.Sprintf("Name: %s, message: %s, Pattern: %s", sHandler.job.Name, sHandler.job.Payload, sHandler.job.Pattern))
+	fmt.Println(fmt.Sprintf("Name: %s, message: %s, Pattern: %s, msgId: %s", sHandler.job.Name, sHandler.job.Payload, sHandler.job.Pattern, sHandler.job.MessageId))
 	//schedule job on pattern
 }
