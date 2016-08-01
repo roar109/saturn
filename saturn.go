@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,6 +11,8 @@ import (
 
 func main() {
 	fmt.Println("Saturn is starting ...")
+	flag.Parse()
+	configureMessagePublish()
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)                                                                                         //.Schemes("https")
 	router.HandleFunc("/message/{messageId}", GetMessageByIDHandler)                                                      //.Schemes("https")
