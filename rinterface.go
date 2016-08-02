@@ -69,7 +69,9 @@ func (jHandler JHandler) handle(job Job) {
 	jHandler.job = job
 	fmt.Println(fmt.Sprintf("Name: %s , payload: %s, msgid: %s", jHandler.job.Name, jHandler.job.Payload, jHandler.job.MessageId))
 	//call job.name on remote
-	sendMessage(jHandler.job.Name, jHandler.job.Payload)
+	go func() {
+		sendMessage(jHandler.job.Name, jHandler.job.Payload)
+	}()
 }
 
 func (sHandler SHandler) handle(job Job) {
