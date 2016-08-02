@@ -1,4 +1,4 @@
-package main
+package saturn
 
 import (
 	"fmt"
@@ -9,8 +9,8 @@ import (
 
 //GetMessageByIDHandler handles the router for searching a message
 func GetMessageByIDHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Checking ")
 	vars := mux.Vars(r)
 	messageID := vars["messageId"]
-	fmt.Fprintf(w, messageID)
+	var mess = storage.read(messageID)
+	fmt.Fprintf(w, mess)
 }

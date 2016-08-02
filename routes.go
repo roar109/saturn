@@ -1,24 +1,19 @@
-package main
+package saturn
 
 import (
-	"flag"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-func main() {
-	fmt.Println("Saturn is starting ...")
-	flag.Parse()
-	configureMessagePublish()
+func NewConfiguredRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", Index)                                                                                         //.Schemes("https")
 	router.HandleFunc("/message/{messageId}", GetMessageByIDHandler)                                                      //.Schemes("https")
 	router.HandleFunc("/job", JobRouteHandler).Methods("POST").HeadersRegexp("Content-Type", "application/(text|json)")   //.Schemes("https")
 	router.HandleFunc("/sjob", SJobRouteHandler).Methods("POST").HeadersRegexp("Content-Type", "application/(text|json)") //.Schemes("https")
-	log.Fatal(http.ListenAndServe(":8088", router))
+	return router
 }
 
 // Index is a simple health service

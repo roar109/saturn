@@ -11,4 +11,4 @@
 
 **Payload**
 
-	{"name":"some_job_name","payload":"some payload"}
+	{"name":"some_job_name","payload":"some payload","pattern":"pending the format here"}

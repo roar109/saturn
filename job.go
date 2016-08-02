@@ -1,4 +1,4 @@
-package main
+package saturn
 
 import (
 	"crypto/rand"

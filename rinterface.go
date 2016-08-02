@@ -1,4 +1,4 @@
-package main
+package saturn
 
 import (
 	"encoding/json"
@@ -60,14 +60,15 @@ func jobRoutesHandler(w http.ResponseWriter, r *http.Request, handler Handler) {
 		m.buildMessageId()
 		//Return the message id
 		fmt.Fprintf(w, m.MessageId)
-
+		//TODO Error handling
+		//TODO check if we do this async/sync
 		handler.handle(m)
 	}
 }
 
 func (jHandler JHandler) handle(job Job) {
 	jHandler.job = job
-	fmt.Println(fmt.Sprintf("Name: %s , payload: %s, msgid: %s", jHandler.job.Name, jHandler.job.Payload, jHandler.job.MessageId))
+	log.Println(fmt.Sprintf("Name: %s , payload: %s, msgid: %s", jHandler.job.Name, jHandler.job.Payload, jHandler.job.MessageId))
 	//call job.name on remote
 	go func() {
 		sendMessage(jHandler.job.Name, jHandler.job.Payload)
@@ -76,6 +77,10 @@ func (jHandler JHandler) handle(job Job) {
 
 func (sHandler SHandler) handle(job Job) {
 	sHandler.job = job
-	fmt.Println(fmt.Sprintf("Name: %s, message: %s, Pattern: %s, msgId: %s", sHandler.job.Name, sHandler.job.Payload, sHandler.job.Pattern, sHandler.job.MessageId))
-	//schedule job on pattern
+	log.Println(fmt.Sprintf("Name: %s, message: %s, Pattern: %s, msgId: %s", sHandler.job.Name, sHandler.job.Payload, sHandler.job.Pattern, sHandler.job.MessageId))
+
+	jobPayload := &JobPayload{Pattern: sHandler.job.Pattern, Message: sHandler.job.Payload}
+	var sjob = &SJob{Key: sHandler.job.MessageId, Payload: *jobPayload}
+	//save the message
+	storage.save(*sjob)
 }

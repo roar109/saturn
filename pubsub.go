@@ -1,4 +1,4 @@
-package main
+package saturn
 
 import (
 	"flag"
@@ -14,7 +14,7 @@ var (
 	client_ *pubsub.Client
 )
 
-func configureMessagePublish() {
+func init() {
 	client, err := pubsub.NewClient(context.Background(), *projID)
 
 	if err != nil {
