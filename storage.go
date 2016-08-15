@@ -52,9 +52,9 @@ func (strg *FileStorage) read(messageId string) string {
 }
 
 func (strg *FileStorage) save(sJob SJob) {
-	log.Println(sJob.toString())
+	log.Println(sJob.toJSON())
 	err := db.Update(func(tx *buntdb.Tx) error {
-		_, _, err := tx.Set(sJob.Key, sJob.toString(), nil)
+		_, _, err := tx.Set(sJob.Key, sJob.toJSON(), nil)
 		return err
 	})
 	if err != nil {

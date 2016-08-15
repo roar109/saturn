@@ -83,4 +83,5 @@ func (sHandler SHandler) handle(job Job) {
 	var sjob = &SJob{Key: sHandler.job.MessageId, Payload: *jobPayload}
 	//save the message
 	storage.save(*sjob)
+	//TODO schedule it
 }

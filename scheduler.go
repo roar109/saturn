@@ -15,7 +15,7 @@ type SJob struct {
 	Payload JobPayload
 }
 
-func (sJob *SJob) toString() string {
+func (sJob *SJob) toJSON() string {
 	b, err := json.Marshal(sJob.Payload)
 	if err != nil {
 		log.Fatal(err)
