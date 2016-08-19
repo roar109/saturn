@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	//TODO validate the project id
+	flag.Parse()
 	client, err := pubsub.NewClient(context.Background(), *projID)
 
 	if err != nil {
