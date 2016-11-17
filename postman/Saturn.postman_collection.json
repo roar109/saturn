@@ -1,0 +1,31 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Saturn",
+		"_postman_id": "741d7b98-a8e4-a2a7-dffe-0433b4f5eb3b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Job",
+			"request": {
+				"url": "http://localhost:8088/job",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"account-overdue\",\"payload\":\"20\",\"pattern\":\"\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
